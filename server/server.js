@@ -12,15 +12,12 @@ app.use(bodyParser.urlencoded({extended : true}));
 //VARIABLES
 
 // array to hold both input values and math operator. length should always be 3
-const numberArray = [{
-    numberOne: 'test1',
-    numberTwo: 'test2',
-    math:      '/',
-}]
+const numberArray = []
 
-function math(numberArray){
 
-}
+// function math(numberArray){
+
+// }
 
 
 //ROUTES - START
@@ -33,6 +30,7 @@ app.post('/numbers', (req, res) => {
     numberArray.push(req.body);
 
     res.sendStatus(201) // catch for functionality
+    
 })
 
 
@@ -43,6 +41,8 @@ app.get('/numbers', (req,res) =>{
     console.log('going to /numbers');
     //responding with numberArray
     res.send(numberArray);
+    
+    res.sendStatus(201)
 })
 
 
