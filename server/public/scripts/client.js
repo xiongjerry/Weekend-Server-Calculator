@@ -8,9 +8,9 @@ function handleReady(){
 //function that displays history list
 inputDisplay() // --SHOULD BE TIED TO = BUTTON
 
-// CLICK LISTENERS
 
-// function that decides math method
+
+// CLICK LISTENERS
 
 $('.operator').on('click', inputs)
 
@@ -21,7 +21,9 @@ $('#equalsBtn').on('click', inputAnswer)
 
 } // ends handleReady
 
-function clearIn (){
+
+
+function clearIn(){
     $('#valueOne').val('')
     $('#valueTwo').val('')
 }
@@ -32,6 +34,7 @@ function inputAnswer(){
         url: '/math'
     }).then(function (answer){
         console.log(answer);
+        inputDisplay();
     })
 }
 
@@ -39,11 +42,10 @@ function inputAnswer(){
 function inputs(){
     console.log('adding number inputs');
     let numberIn = {
-        numberOne: $('#valueOne').val(),
-        numberTwo: $('#valueTwo').val(),
+        numberOne: Number($('#valueOne').val()),
+        numberTwo: Number($('#valueTwo').val()),
         math: $(this).text()
     }
-
     console.log(numberIn); // checking numbers
     
     $.ajax({
@@ -51,7 +53,6 @@ function inputs(){
         method: 'POST',
         data: numberIn
     }).then(response =>{
-        inputDisplay(); // updates DOM history
     }).catch(ERR =>{console.log('error');})
 
 } // end inputs
@@ -61,14 +62,17 @@ function inputDisplay(){
         method: 'GET',
         url: '/numbers'
     }).then(function (numbers){
-        console.log('values being displayed', numbers);
+        console.log('values being displayed from server', numbers);
         // clears DOM to update
         $('.history').empty()
+        // appends answer to DOM
         //append to the DOM the history
         for(values of numbers){
         $('.history').append(`<li>
         ${values.numberOne} ${values.math} ${values.numberTwo} = ${values.answer}
         </li>
-        `)} // end for loop
-        }) //end .then
+        `)
+        $('.answer').text(`${values.answer}`)
+        } // end for loop
+    }) //end .then
 } // end inputDisplay

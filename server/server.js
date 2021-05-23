@@ -14,28 +14,37 @@ app.use(bodyParser.urlencoded({extended : true}));
 // array to hold both input values and math operator. length should always be 3
 const numberArray = []
 
-function math(numberArray){
+function math(){
     console.log('in maths');
     let answer;
+    console.log(numberArray);
     for(numbers in numberArray ){
-        let one = Number(numbers.numberOne)
-        let two = Number(numbers.numberTwo)
+        let one = Number(numberArray[numbers].numberOne)
+        let two = Number(numberArray[numbers].numberTwo)
     switch (numberArray[numbers].math) {
         case '+':
             answer = one + two;
-            return answer;    
+            console.log(answer);
+            numberArray[numbers].answer = answer
+            // return numberArray[numbers];    
         break;
         case '-':
             answer = one - two;
-            return answer;    
+            console.log(answer);
+            numberArray[numbers].answer = answer
+            // return numberArray[numbers];    
         break;
         case '*':
             answer = one * two;
-            return answer;    
+            console.log(answer);
+            numberArray[numbers].answer = answer
+            // return numberArray[numbers];    
         break;
         case '/':
             answer = one / two;
-            return answer;    
+            console.log(answer);
+            numberArray[numbers].answer = answer
+            // return numberArray[numbers];    
         break;
     } // end case statement
     } // end for loop
@@ -51,7 +60,7 @@ app.post('/numbers', (req, res) => {
 
     numberArray.push(req.body);
 
-    res.sendStatus(201) // catch for functionality
+    res.sendStatus(201) // KEEP
 })
 
 // make 'GET' route to hold inputs
@@ -62,7 +71,6 @@ app.get('/numbers', (req, res) =>{
     //responding with numberArray
     res.send(numberArray);
 
-    res.sendStatus(201)
 })
 
 // make a 'GET' route to call math function
@@ -70,9 +78,8 @@ app.get('/math', (req, res) =>{
     console.log('going maths');
 
     //responding with return of math function
-    res.send(math(numberArray));
+    res.send(math());
 
-    res.sendStatus(201)
 })
 
 //ROUTES - END
