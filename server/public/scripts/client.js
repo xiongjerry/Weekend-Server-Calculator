@@ -12,24 +12,38 @@ inputDisplay() // --SHOULD BE TIED TO = BUTTON
 
 // function that decides math method
 
-// $('#addBtn').on('click',)
-// $('#subtractionBtn').on('click',)
-// $('#multBtn').on('click',)
-// $('#divisionBtn').on('click',)
-// $('#clearBtn').on('click',)
+$('.operator').on('click', inputs)
 
-// function that takes in inputs
-$('#equalsBtn').on('click', inputs)
+$('#clearBtn').on('click', clearIn)
+
+$('#equalsBtn').on('click', inputAnswer)
 
 
 } // ends handleReady
+
+function clearIn (){
+    $('#valueOne').val('')
+    $('#valueTwo').val('')
+}
+
+function inputAnswer(){
+    $.ajax({
+        method: 'GET',
+        url: '/math'
+    }).then(function (answer){
+        console.log(answer);
+    })
+}
+
 
 function inputs(){
     console.log('adding number inputs');
     let numberIn = {
         numberOne: $('#valueOne').val(),
-        numberTwo: $('#valueTwo').val()
+        numberTwo: $('#valueTwo').val(),
+        math: $(this).text()
     }
+
     console.log(numberIn); // checking numbers
     
     $.ajax({
@@ -37,24 +51,21 @@ function inputs(){
         method: 'POST',
         data: numberIn
     }).then(response =>{
-        console.log(response); // should be the same values as above
         inputDisplay(); // updates DOM history
     }).catch(ERR =>{console.log('error');})
+
 } // end inputs
 
 function inputDisplay(){
-    console.log('in inputsDisplay');
-
     $.ajax({
         method: 'GET',
         url: '/numbers'
     }).then(function (numbers){
-        console.log(numbers);
+        console.log('values being displayed', numbers);
         // MUST Calculate answer before this function
         //append to the DOM the history
         for(values of numbers){
-        $('.history').append(`
-        <li>${values.numberOne} ${values.math} ${values.numberTwo} = ANSWER</li>
+        $('.history').text(`${values.numberOne} ${values.math} ${values.numberTwo} = ${values.answer}
         `)} // end for loop
         }
     ) //end .then

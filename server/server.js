@@ -14,10 +14,29 @@ app.use(bodyParser.urlencoded({extended : true}));
 // array to hold both input values and math operator. length should always be 3
 const numberArray = []
 
+function math(numberArray){
+    console.log('in maths');
+    let answer;
 
-// function math(numberArray){
-
-// }
+    switch (numberArray[0].math) {
+        case '+':
+            answer = numberArray[0].numberOne + numberArray[0].numberTwo
+            return answer;    
+        break;
+        case '-':
+            answer = numbOne - numbTwo
+            return numberArray.answer = answer;    
+        break;
+        case '*':
+            answer = numbOne * numbTwo
+            return numberArray.answer = answer;    
+        break;
+        case '/':
+            answer = numbOne / numbTwo
+            return numberArray.answer = answer;    
+        break;
+    } // end case statement
+}
 
 
 //ROUTES - START
@@ -30,23 +49,28 @@ app.post('/numbers', (req, res) => {
     numberArray.push(req.body);
 
     res.sendStatus(201) // catch for functionality
-    
 })
-
-
 
 // make 'GET' route to hold inputs
 
-app.get('/numbers', (req,res) =>{
+app.get('/numbers', (req, res) =>{
     console.log('going to /numbers');
+
     //responding with numberArray
     res.send(numberArray);
-    
+
     res.sendStatus(201)
 })
 
+// make a 'GET' route to call math function
+app.get('/math', (req, res) =>{
+    console.log('going maths');
 
+    //responding with return of math function
+    res.send(math(numberArray));
 
+    res.sendStatus(201)
+})
 
 //ROUTES - END
 
