@@ -62,11 +62,13 @@ function inputDisplay(){
         url: '/numbers'
     }).then(function (numbers){
         console.log('values being displayed', numbers);
-        // MUST Calculate answer before this function
+        // clears DOM to update
+        $('.history').empty()
         //append to the DOM the history
         for(values of numbers){
-        $('.history').text(`${values.numberOne} ${values.math} ${values.numberTwo} = ${values.answer}
+        $('.history').append(`<li>
+        ${values.numberOne} ${values.math} ${values.numberTwo} = ${values.answer}
+        </li>
         `)} // end for loop
-        }
-    ) //end .then
+        }) //end .then
 } // end inputDisplay

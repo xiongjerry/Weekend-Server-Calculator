@@ -17,25 +17,28 @@ const numberArray = []
 function math(numberArray){
     console.log('in maths');
     let answer;
-
-    switch (numberArray[0].math) {
+    for(numbers in numberArray ){
+        let one = Number(numbers.numberOne)
+        let two = Number(numbers.numberTwo)
+    switch (numberArray[numbers].math) {
         case '+':
-            answer = numberArray[0].numberOne + numberArray[0].numberTwo
+            answer = one + two;
             return answer;    
         break;
         case '-':
-            answer = numbOne - numbTwo
-            return numberArray.answer = answer;    
+            answer = one - two;
+            return answer;    
         break;
         case '*':
-            answer = numbOne * numbTwo
-            return numberArray.answer = answer;    
+            answer = one * two;
+            return answer;    
         break;
         case '/':
-            answer = numbOne / numbTwo
-            return numberArray.answer = answer;    
+            answer = one / two;
+            return answer;    
         break;
     } // end case statement
+    } // end for loop
 }
 
 
